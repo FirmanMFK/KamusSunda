@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Firmanz on 8/31/2016.
  */
-public class KamusModel implements Serializable {
+public class KamusModel implements Serializable{
     int id;
     String kata, arti;
 
@@ -33,6 +33,13 @@ public class KamusModel implements Serializable {
         this.arti = arti;
     }
 
+    public static KamusModel getKamusModel(String kata, String arti){
+        KamusModel kamusModel = new KamusModel();
+        kamusModel.setArti(arti);
+        kamusModel.setKata(kata);
+
+        return kamusModel;
+    }
 
     public static KamusModel getKamusModel(int id, String kata, String arti){
         KamusModel kamusModel = new KamusModel();
@@ -42,4 +49,6 @@ public class KamusModel implements Serializable {
 
         return kamusModel;
     }
+
+
 }
