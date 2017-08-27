@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firman.kamussunda.adapter.ListKataAdapter;
-import com.firman.kamussunda.app.DictionaryApplication;
+import com.firman.kamussunda.app.KamusApplication;
 import com.firman.kamussunda.data.DefaultData;
 import com.firman.kamussunda.helper.KamusHelper;
 import com.firman.kamussunda.model.KamusModel;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 	private ArrayList<KamusModel> listKata;
 	private KamusHelper kamusHelper;
 	public ListKataAdapter listKataAdapter;
-    private DictionaryApplication application;
+    private KamusApplication application;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
 		fab = (FloatingActionButton)findViewById(R.id.fab);
 
 		listKata = new ArrayList<KamusModel>();
-        application = (DictionaryApplication)getApplication();
+        application = (KamusApplication)getApplication();
         application.getKamusObserver().addObserver(this);
 		
 		kamusHelper = new KamusHelper(MainActivity.this);
@@ -73,14 +73,6 @@ public class MainActivity extends AppCompatActivity
 			}
 		});
 		
-		lvKata.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                           int arg2, long arg3) {
-                deleteDialog(listKata.get(arg2).getId());
-                return false;
-            }
-        });
 
         fab.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
@@ -184,38 +176,7 @@ public class MainActivity extends AppCompatActivity
 		
 	}
 	
-	private void deleteDialog(final int id) {
-		// TODO Auto-generated method stub
-        final Dialog dialog = new Dialog(MainActivity.this, R.style.AppCompatAlertDialogStyle);
-		dialog.setTitle("Hapus");
-		dialog.setContentView(R.layout.dialog_delete);
-		dialog.setCancelable(true);
-		
-		Button btnYes = (Button)dialog.findViewById(R.id.btnDeleteYes);
-		Button btnCancel = (Button)dialog.findViewById(R.id.btnDeleteCancel);
-		
-		btnYes.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				kamusHelper.delete(id);
-				dialog.dismiss();
-                Toast.makeText(MainActivity.this, getString(R.string.text_success_delete), Toast.LENGTH_LONG).show();
-                application.getKamusObserver().refresh();
-			}
-		});
-		
-		btnCancel.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				dialog.dismiss();
-			}
-		});
-		
-		dialog.show();
-		
-	}
 
 	public void bindData(){
 		if (listKata.size()>0) {
