@@ -31,8 +31,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MainActivity extends AppCompatActivity
-        implements Observer{
+public class MainActivity extends AppCompatActivity implements Observer{
 
     private ListView lvKata;
     private FloatingActionButton fab;
